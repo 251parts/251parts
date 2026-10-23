@@ -703,9 +703,13 @@
               <label for="f-company" data-i18n="form.company">Company</label>
               <input id="f-company" name="company" type="text" autocomplete="organization" />
             </div>
-            <div class="field full">
+            <div class="field">
               <label for="f-phone" data-i18n="form.phone">Your phone / WhatsApp</label>
               <input id="f-phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+            <div class="field">
+              <label for="f-email" data-i18n="form.email">Email (optional)</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" />
             </div>
             <div class="field">
               <label for="f-part" data-i18n="form.part">Part name or OEM number</label>
@@ -891,6 +895,7 @@
       "form.name": "Name",
       "form.company": "Company",
       "form.phone": "Your phone / WhatsApp",
+      "form.email": "Email (optional)",
       "form.part": "Part name or OEM number",
       "form.qty": "Quantity",
       "form.notes": "Notes",
@@ -1024,6 +1029,7 @@
       "form.name": "ስም",
       "form.company": "ኩባንያ / ድርጅት",
       "form.phone": "የስልክ / WhatsApp ቁጥርዎ",
+      "form.email": "ኢሜይል (አማራጭ)",
       "form.part": "የእቃ ስም ወይም የኦሪጂናል ቁጥር",
       "form.qty": "ብዛት",
       "form.notes": "ተጨማሪ ማስታወሻ",
@@ -1115,10 +1121,14 @@
       quantity: document.getElementById("f-qty").value || "1",
       notes: document.getElementById("f-notes").value.trim(),
       _subject: "Quote request — 251 Parts website",
+      _autoresponse: "ሰላም፣\nእናመሰግናለን! ጥያቄዎ 251 መለዋወጫ ደርሶታል።\nሂደታችን እንደሚከተለው ነው፦\n1. የላኩልንን የእቃ ቁጥር (part number)፣ ፎቶ ወይም የVIN ቁጥር እንመረምራለን።\n2. እቃውን በቻይና ከታመነ አቅራቢ እንፈልጋለን፤ በሻንጋይ ያለን አጋራችን እቃውን በአካል ይፈትሽና የፎቶና የቪዲዮ ማረጋገጫ ይልክልዎታል።\n3. የእቃ ዋጋ፣ የትራንስፖርት እና እስከ አዲስ አበባ የማድረስ ወጪን ያካተተ አንድ ሙሉ ዋጋ እንልክልዎታለን።\nበጥቂት ቀናት ውስጥ በኢሜይልም በስልክም እንመልስልዎታለን። ተጨማሪ መረጃ ካለዎት — ትክክለኛ የእቃ ቁጥር፣ ፎቶ ወይም ብዛት — ለዚህ ኢሜይል መልስ በመስጠት ይላኩልን።\nአመሰግናለሁ፣\n251 መለዋወጫ (251 Parts)\nEthiopia: +251 911 602 537 · China: +86 177 0185 5750\n251partsaddis@gmail.com · https://251parts.github.io/251parts/",
       _template: "table",
       _captcha: "false",
       _honey: ""
     };
+
+    var emailVal = document.getElementById("f-email").value.trim();
+    if (emailVal) payload.email = emailVal;
 
     fetch("https://formsubmit.co/ajax/251partsaddis@gmail.com", {
       method: "POST",
