@@ -748,8 +748,8 @@
             </div>
             <div class="field">
               <label for="f-qty" data-i18n="form.qty">Quantity</label>
-              <input id="f-qty" name="quantity" type="number" min="5" step="1" value="5" />
-              <small class="fhelp" data-i18n="form.qty.help">ዝቅተኛ ብዛት 5</small>
+              <input id="f-qty" name="quantity" type="number" min="1" step="1" value="1" />
+              <small class="fhelp" data-i18n="form.qty.help">ዝቅተኛ ብዛት 1</small>
             </div>
             <div class="field full">
               <label for="f-notes" data-i18n="form.notes">Notes</label>
@@ -932,7 +932,7 @@
       "form.email.help": "We send your quote and inspection photos to this email.",
       "form.part": "Part name or OEM number",
       "form.qty": "Quantity",
-      "form.qty.help": "Minimum quantity: 5",
+      "form.qty.help": "Minimum quantity: 1",
       "form.notes": "Notes",
       "form.notes.ph": "Vehicle or machine model, year, VIN — anything that helps us match the exact part.",
       "form.submit": "Send Quote Request",
@@ -1069,7 +1069,7 @@
       "form.email.help": "ዋጋውና የፍተሻ ፎቶዎች ወደዚህ ኢሜይል ይላካሉ።",
       "form.part": "የእቃ ስም ወይም የኦሪጂናል ቁጥር",
       "form.qty": "ብዛት",
-      "form.qty.help": "ዝቅተኛ ብዛት 5",
+      "form.qty.help": "ዝቅተኛ ብዛት 1",
       "form.notes": "ተጨማሪ ማስታወሻ",
       "form.notes.ph": "የመኪና ወይም የማሽን ሞዴል፣ አመት፣ VIN — ትክክለኛውን እቃ ለማዛመድ የሚረዳ ማንኛውም ነገር።",
       "form.submit": "የዋጋ ጥያቄውን ላክ",
@@ -1156,7 +1156,7 @@
       company: document.getElementById("f-company").value.trim(),
       phone: document.getElementById("f-phone").value.trim(),
       part: partField.value.trim(),
-      quantity: document.getElementById("f-qty").value || "5",
+      quantity: document.getElementById("f-qty").value || "1",
       notes: document.getElementById("f-notes").value.trim(),
       _subject: "Quote request — 251 Parts website",
       _autoresponse: "ሰላም፣\nእናመሰግናለን! ጥያቄዎ 251 መለዋወጫ ደርሶታል።\nሂደታችን እንደሚከተለው ነው፦\n1. የላኩልንን የእቃ ቁጥር (part number)፣ ፎቶ ወይም የVIN ቁጥር እንመረምራለን።\n2. እቃውን በቻይና ከታመነ አቅራቢ እንፈልጋለን፤ በቻይና ያለን አጋራችን እቃውን በአካል ይፈትሽና የፎቶና የቪዲዮ ማረጋገጫ ይልክልዎታል።\n3. የእቃ ዋጋ፣ የትራንስፖርት እና እስከ አዲስ አበባ የማድረስ ወጪን ያካተተ አንድ ሙሉ ዋጋ እንልክልዎታለን።\nበጥቂት ቀናት ውስጥ በኢሜይልም በስልክም እንመልስልዎታለን። ተጨማሪ መረጃ ካለዎት — ትክክለኛ የእቃ ቁጥር፣ ፎቶ ወይም ብዛት — ለዚህ ኢሜይል መልስ በመስጠት ይላኩልን።\nአመሰግናለሁ፣\n251 መለዋወጫ (251 Parts)\nEthiopia: +251 911 602 537 · China: +86 177 0185 5750\n251partsaddis@gmail.com · https://251parts.com/",
@@ -1179,7 +1179,7 @@
       status.className = "form-status ok";
       status.textContent = t("form.ok");
       form.reset();
-      document.getElementById("f-qty").value = "5";
+      document.getElementById("f-qty").value = "1";
     }).catch(function(){
       status.className = "form-status err";
       status.textContent = t("form.err");
