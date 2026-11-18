@@ -326,6 +326,23 @@
     .form-status.ok{background:#123524;color:#9FE0B4;border-color:#1E5C3A}
     .form-status.err{background:#3A1717;color:#F3B0B0;border-color:#6E2A2A}
   }
+  .form-toast{
+    position:fixed;top:20px;right:20px;z-index:200;max-width:min(380px,calc(100vw - 32px));
+    background:#E5F4E9;color:#0B5A2E;border:1px solid #A9D6B6;border-radius:12px;
+    padding:14px 44px 14px 16px;font-weight:600;box-shadow:var(--shadow);display:none;line-height:1.45;
+  }
+  .form-toast.show{display:block}
+  .form-toast-close{
+    position:absolute;top:6px;right:6px;width:32px;height:32px;border:0;background:transparent;color:inherit;
+    font-size:1.35rem;line-height:1;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0;
+  }
+  .form-toast-close:hover{background:rgba(11,90,46,.12)}
+  .form-toast-close:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+  @media (prefers-color-scheme: dark){
+    .form-toast{background:#123524;color:#9FE0B4;border-color:#1E5C3A}
+    .form-toast-close:hover{background:rgba(159,224,180,.15)}
+  }
+  @media (max-width:560px){.form-toast{top:16px;right:16px;left:16px;max-width:none}}
   .btn[disabled]{opacity:.65;cursor:wait}
 
   /* footer */
@@ -856,6 +873,11 @@
   </div>
 </footer>
 
+<div class="form-toast" id="form-toast" role="status" aria-live="polite">
+  <span id="form-toast-text">ተልኳል! በቅርቡ እንመልስልዎታለን።</span>
+  <button type="button" class="form-toast-close" id="form-toast-close" aria-label="ዝጋ / Close">&times;</button>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -1195,6 +1217,23 @@
   var form = document.getElementById("quote-form");
   var status = document.getElementById("form-status");
   var submitBtn = document.getElementById("quote-submit");
+  var toast = document.getElementById("form-toast");
+  var toastText = document.getElementById("form-toast-text");
+  var toastClose = document.getElementById("form-toast-close");
+  var toastTimer = null;
+  function hideToast(){
+    if (!toast) return;
+    toast.classList.remove("show");
+    if (toastTimer){ window.clearTimeout(toastTimer); toastTimer = null; }
+  }
+  function showToast(msg){
+    if (!toast || !toastText) return;
+    toastText.textContent = msg;
+    toast.classList.add("show");
+    if (toastTimer) window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(hideToast, 10000);
+  }
+  if (toastClose) toastClose.addEventListener("click", hideToast);
 
   form.addEventListener("submit", function(ev){
     ev.preventDefault();
@@ -1203,6 +1242,7 @@
     submitBtn.textContent = t("form.sending");
     status.className = "form-status";
     status.textContent = "";
+    hideToast();
 
     var payload = {
       name: document.getElementById("f-name").value.trim(),
@@ -1229,8 +1269,9 @@
       if (!res.ok) throw new Error("send failed");
       return res.json().catch(function(){ return {}; });
     }).then(function(){
-      status.className = "form-status ok";
-      status.textContent = t("form.ok");
+      status.className = "form-status";
+      status.textContent = "";
+      showToast(t("form.ok"));
       form.reset();
       document.getElementById("f-qty").value = "1";
     }).catch(function(){
